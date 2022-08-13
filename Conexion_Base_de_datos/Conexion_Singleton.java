@@ -4,28 +4,28 @@
  */
 package Conexion_Base_de_datos;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  *
  * @author lenin
  */
 public class Conexion_Singleton {
- private static Connection con=null;
-   public static Connection getConnection(){
-      try{
-         if( con == null ){
-            String driver="com.mysql.jdbc.Driver"; 
-            String url="jdbc:mysql://localhost:3306/bdjava";
-            String contraseña="Lenin1uno.";
-            String usuario="Lenin";
-            Class.forName(driver);
-            con = DriverManager.getConnection(url,usuario,contraseña);
-            System.out.println("Conection Succesfull");
-         }
-     }
-     catch(ClassNotFoundException | SQLException ex){
-        ex.printStackTrace();
-     }
-     return con;
-   }
+ private static Connection conexion=null;
+ final static String driver="com.mysql.jdbc.Driver";
+ final static String url="jdbc:mysql://localhost:3306/bdjava";
+ final static String contraseña="Lenin1uno.";
+ final static String usuario="Lenin"; 
 
+ public static Connection getConnection() throws ClassNotFoundException, SQLException{
+         if( conexion == null ){
+            Class.forName(driver);
+            conexion = DriverManager.getConnection(url,usuario,contraseña);
+            System.out.println("Se conectó correctamente");
+         }
+     return conexion;
+   }
 }
